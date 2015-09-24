@@ -21,8 +21,17 @@ angular.module('starter.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+.controller('AccountCtrl', function($scope, $rootScope){
+  $scope.login = function(){
+    var ref = new Firebase('https://incandescent-fire-5045.firebaseio.com');
+    ref.authWithOAuthPopup('facebook', function(error, authData){
+      if(error){
+        console.log('Flasheate amigo');
+      }else{
+        console.log('Todo pio');
+        console.log(authData);
+      }
+      $rootScope.authData = authData;     
+    });
   };
 });
